@@ -3,8 +3,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index.tsx";
-import NotFound from "./pages/NotFound.tsx";
+import Index from "./pages/Index";
+import Catalog from "./pages/Catalog";
+import ArtistProfile from "./pages/ArtistProfile";
+import SearchPage from "./pages/SearchPage";
+import BookingPage from "./pages/BookingPage";
+import ClientDashboard from "./pages/ClientDashboard";
+import ArtistDashboard from "./pages/ArtistDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +23,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/artist/:id" element={<ArtistProfile />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/booking/:artistId" element={<BookingPage />} />
+          <Route path="/dashboard/client" element={<ClientDashboard />} />
+          <Route path="/dashboard/artist" element={<ArtistDashboard />} />
+          <Route path="/dashboard/admin" element={<AdminDashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
