@@ -8,8 +8,6 @@ const navLinks = [
   { label: "Home", to: "/" },
   { label: "Art Forms", to: "/catalog" },
   { label: "Search", to: "/search" },
-  { label: "Client Dashboard", to: "/dashboard/client" },
-  { label: "Artist Dashboard", to: "/dashboard/artist" },
 ];
 
 const Navbar = () => {
@@ -37,9 +35,9 @@ const Navbar = () => {
               {l.label}
             </Link>
           ))}
-          <Link to="/dashboard/admin">
-            <Button size="sm" variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
-              Admin
+          <Link to="/login">
+            <Button size="sm" className="gradient-saffron text-white font-heading">
+              Login
             </Button>
           </Link>
         </div>
@@ -65,9 +63,9 @@ const Navbar = () => {
               {l.label}
             </Link>
           ))}
-          <Link to="/dashboard/admin" onClick={() => setOpen(false)}>
-            <Button size="sm" variant="outline" className="mt-2 border-accent text-accent">
-              Admin
+          <Link to="/login" onClick={() => setOpen(false)}>
+            <Button size="sm" className="mt-2 gradient-saffron text-white font-heading">
+              Login
             </Button>
           </Link>
         </div>
