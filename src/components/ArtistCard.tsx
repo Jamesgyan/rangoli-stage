@@ -7,7 +7,7 @@ import type { Artist } from "@/data/mockData";
 
 const ArtistCard = ({ artist }: { artist: Artist }) => (
   <Link to={`/artist/${artist.id}`}>
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group border-t-4 border-t-secondary">
       <div className="relative h-48 overflow-hidden">
         <img
           src={artist.photo}
@@ -22,7 +22,7 @@ const ArtistCard = ({ artist }: { artist: Artist }) => (
       </div>
       <CardContent className="p-4 space-y-2">
         <h3 className="font-heading font-semibold text-lg">{artist.name}</h3>
-        <p className="text-sm text-accent font-medium">{artist.artForm}</p>
+        <p className="text-sm text-primary font-medium">{artist.artForm}</p>
         <div className="flex items-center gap-1 text-sm text-muted-foreground">
           <MapPin size={14} />
           {artist.location}
@@ -32,7 +32,7 @@ const ArtistCard = ({ artist }: { artist: Artist }) => (
             <RatingStars rating={artist.rating} size={14} />
             <span className="text-xs text-muted-foreground">({artist.reviewCount})</span>
           </div>
-          <span className="font-heading font-bold text-accent">₹{artist.price.toLocaleString()}</span>
+          <span className="font-heading font-bold text-primary">₹{artist.price.toLocaleString()}</span>
         </div>
       </CardContent>
     </Card>

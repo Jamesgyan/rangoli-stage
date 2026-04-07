@@ -20,41 +20,37 @@ const staggerContainer = {
 const Index = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative gradient-cultural text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 mandala-bg opacity-30" />
+      {/* Hero — Tricolor gradient */}
+      <section className="relative gradient-tricolor overflow-hidden chakra-bg">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="container mx-auto px-4 py-20 md:py-32 relative z-10 text-center"
         >
-          <img src={logo} alt="INDISARA" className="w-24 h-24 rounded-full mx-auto mb-6 shadow-lg border-4 border-highlight/30" />
-          <h1 className="font-heading font-extrabold text-4xl md:text-6xl mb-4 leading-tight">
+          <img src={logo} alt="INDISARA" className="w-24 h-24 rounded-full mx-auto mb-6 shadow-lg border-4 border-primary/20" />
+          <h1 className="font-heading font-extrabold text-4xl md:text-6xl mb-4 leading-tight text-foreground">
             Discover & Book<br />
-            <span className="text-highlight">Authentic Indian Folk Artists</span>
+            <span className="text-primary">Authentic Indian Folk Artists</span>
           </h1>
-          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-8">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             From weddings to festivals — bring culture to life with INDISARA
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/catalog">
-              <Button size="lg" className="gradient-saffron text-white font-heading font-semibold px-8 hover:opacity-90 shadow-lg">
+              <Button size="lg" className="gradient-saffron text-white font-heading font-semibold px-8 hover:opacity-90 shadow-lg rounded-full">
                 <Search size={18} /> Browse Artists
               </Button>
             </Link>
             <Link to="/login">
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-heading">
+              <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground font-heading rounded-full">
                 Become an Artist
               </Button>
             </Link>
           </div>
         </motion.div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" className="w-full text-background fill-current">
-            <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,35 1440,30 L1440,60 L0,60 Z" />
-          </svg>
-        </div>
+        {/* Tricolor divider */}
+        <div className="h-1 gradient-tricolor-line" />
       </section>
 
       {/* How It Works */}
@@ -63,10 +59,10 @@ const Index = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="py-16 bg-background rangoli-bg"
+        className="py-16 bg-card mandala-bg"
       >
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-2">How It Works</h2>
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-2 text-foreground">How It Works</h2>
           <p className="text-muted-foreground mb-12">Three simple steps to bring folk art to your event</p>
           <motion.div
             variants={staggerContainer}
@@ -76,12 +72,12 @@ const Index = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
           >
             {[
-              { icon: Search, title: "Browse", desc: "Explore our curated collection of authentic folk artists from across Karnataka" },
-              { icon: Calendar, title: "Book", desc: "Choose your date, share event details, and get instant confirmation" },
-              { icon: PartyPopper, title: "Enjoy", desc: "Sit back and experience the magic of traditional folk performances" },
+              { icon: Search, title: "Browse", desc: "Explore our curated collection of authentic folk artists from across Karnataka", color: "bg-primary" },
+              { icon: Calendar, title: "Book", desc: "Choose your date, share event details, and get instant confirmation", color: "bg-accent" },
+              { icon: PartyPopper, title: "Enjoy", desc: "Sit back and experience the magic of traditional folk performances", color: "bg-secondary" },
             ].map((step, i) => (
               <motion.div key={step.title} variants={fadeUp} className="flex flex-col items-center p-6 group">
-                <div className="w-20 h-20 rounded-full gradient-saffron flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                <div className={`w-20 h-20 rounded-full ${step.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
                   <step.icon size={32} className="text-white" />
                 </div>
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-heading font-bold text-sm mb-3">
@@ -95,13 +91,16 @@ const Index = () => {
         </div>
       </motion.section>
 
+      {/* Tricolor line divider */}
+      <div className="h-1 gradient-tricolor-line" />
+
       {/* Featured Art Forms */}
       <motion.section
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="py-16 bg-section"
+        className="py-16 bg-section rangoli-bg"
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -123,7 +122,7 @@ const Index = () => {
           </motion.div>
           <div className="text-center mt-10">
             <Link to="/catalog">
-              <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground font-heading">
+              <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-heading rounded-full">
                 View All Art Forms →
               </Button>
             </Link>
@@ -131,13 +130,13 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Trust Indicators */}
+      {/* Trust Indicators — Deep Green */}
       <motion.section
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="py-14 gradient-cultural text-primary-foreground"
+        className="py-14 bg-secondary text-secondary-foreground"
       >
         <div className="container mx-auto px-4">
           <motion.div
@@ -156,7 +155,7 @@ const Index = () => {
               <motion.div key={stat.label} variants={fadeUp} className="flex flex-col items-center">
                 <stat.icon size={28} className="text-highlight mb-2" />
                 <span className="font-heading font-extrabold text-3xl md:text-4xl">{stat.value}</span>
-                <span className="text-primary-foreground/70 text-sm mt-1">{stat.label}</span>
+                <span className="text-secondary-foreground/70 text-sm mt-1">{stat.label}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -169,7 +168,7 @@ const Index = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="py-16 bg-background text-center rangoli-bg"
+        className="py-16 bg-card text-center chakra-bg"
       >
         <div className="container mx-auto px-4">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">Ready to Celebrate with Culture?</h2>
@@ -178,12 +177,12 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/search">
-              <Button size="lg" className="gradient-saffron text-white font-heading shadow-lg">
+              <Button size="lg" className="gradient-saffron text-white font-heading shadow-lg rounded-full">
                 Find an Artist
               </Button>
             </Link>
             <Link to="/login">
-              <Button size="lg" variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground font-heading">
+              <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground font-heading rounded-full">
                 Register as Artist
               </Button>
             </Link>

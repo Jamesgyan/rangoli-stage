@@ -31,7 +31,7 @@ const BookingPage = () => {
       <Layout>
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="font-heading font-bold text-2xl">Artist not found</h1>
-          <Link to="/catalog" className="text-accent underline mt-4 inline-block">Browse Artists</Link>
+          <Link to="/catalog" className="text-primary underline mt-4 inline-block">Browse Artists</Link>
         </div>
       </Layout>
     );
@@ -40,8 +40,8 @@ const BookingPage = () => {
   if (submitted) {
     return (
       <Layout>
-        <section className="bg-section rangoli-bg min-h-screen flex items-center justify-center">
-          <Card className="max-w-md w-full mx-4 text-center shadow-lg">
+        <section className="bg-section chakra-bg min-h-screen flex items-center justify-center">
+          <Card className="max-w-md w-full mx-4 text-center shadow-lg border-t-4 border-t-secondary">
             <CardContent className="p-8 space-y-4">
               <CheckCircle size={64} className="mx-auto text-secondary" />
               <h2 className="font-heading font-bold text-2xl">Booking Request Sent!</h2>
@@ -53,8 +53,8 @@ const BookingPage = () => {
                 <p><strong>Location:</strong> {eventLocation}</p>
                 <p><strong>Amount:</strong> ₹{artist.price.toLocaleString()}</p>
               </div>
-              <Link to="/dashboard/client">
-                <Button className="gradient-saffron text-white font-heading mt-4">Go to Dashboard</Button>
+              <Link to="/">
+                <Button className="gradient-saffron text-white font-heading mt-4 rounded-full">Back to Home</Button>
               </Link>
             </CardContent>
           </Card>
@@ -65,7 +65,7 @@ const BookingPage = () => {
 
   return (
     <Layout>
-      <section className="bg-section rangoli-bg min-h-screen py-10">
+      <section className="bg-section mandala-bg min-h-screen py-10">
         <div className="container mx-auto px-4 max-w-2xl">
           <h1 className="font-heading font-bold text-3xl mb-6">Book {artist.name}</h1>
 
@@ -74,18 +74,18 @@ const BookingPage = () => {
             {steps.map((s, i) => (
               <div key={s} className="flex items-center flex-1">
                 <div className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold",
+                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors",
                   i <= step ? "gradient-saffron text-white" : "bg-muted text-muted-foreground"
                 )}>
                   {i + 1}
                 </div>
                 <span className="hidden md:inline text-xs ml-2 text-muted-foreground">{s}</span>
-                {i < steps.length - 1 && <div className={cn("flex-1 h-0.5 mx-2", i < step ? "bg-accent" : "bg-muted")} />}
+                {i < steps.length - 1 && <div className={cn("flex-1 h-0.5 mx-2", i < step ? "bg-primary" : "bg-muted")} />}
               </div>
             ))}
           </div>
 
-          <Card className="shadow-lg">
+          <Card className="shadow-lg border-t-4 border-t-primary">
             <CardHeader>
               <CardTitle className="font-heading">{steps[step]}</CardTitle>
             </CardHeader>
@@ -95,7 +95,7 @@ const BookingPage = () => {
                   <img src={artist.photo} alt={artist.name} className="w-16 h-16 rounded-full object-cover" />
                   <div>
                     <p className="font-heading font-semibold">{artist.name}</p>
-                    <p className="text-sm text-accent">{artist.artForm}</p>
+                    <p className="text-sm text-primary">{artist.artForm}</p>
                     <p className="text-sm text-muted-foreground">₹{artist.price.toLocaleString()}/event</p>
                   </div>
                 </div>
@@ -153,20 +153,16 @@ const BookingPage = () => {
                   <p><strong>Event Type:</strong> {eventType || "Not specified"}</p>
                   <p><strong>Location:</strong> {eventLocation || "Not specified"}</p>
                   <p><strong>Notes:</strong> {notes || "None"}</p>
-                  <p className="text-lg font-heading font-bold text-accent">Total: ₹{artist.price.toLocaleString()}</p>
+                  <p className="text-lg font-heading font-bold text-primary">Total: ₹{artist.price.toLocaleString()}</p>
                 </div>
               )}
 
               <div className="flex justify-between pt-4">
-                <Button variant="outline" disabled={step === 0} onClick={() => setStep(step - 1)}>Back</Button>
+                <Button variant="outline" disabled={step === 0} onClick={() => setStep(step - 1)} className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground rounded-full">Back</Button>
                 {step < 3 ? (
-                  <Button className="gradient-saffron text-white font-heading" onClick={() => setStep(step + 1)}>
-                    Next
-                  </Button>
+                  <Button className="gradient-saffron text-white font-heading rounded-full" onClick={() => setStep(step + 1)}>Next</Button>
                 ) : (
-                  <Button className="gradient-saffron text-white font-heading" onClick={() => setSubmitted(true)}>
-                    Confirm Booking
-                  </Button>
+                  <Button className="gradient-saffron text-white font-heading rounded-full" onClick={() => setSubmitted(true)}>Confirm Booking</Button>
                 )}
               </div>
             </CardContent>

@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 30 33% 98%;
+    --background: 43 100% 97%;
     --foreground: 0 0% 13%;
 
     --card: 0 0% 100%;
@@ -15,31 +15,35 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 13%;
 
-    --primary: 210 30% 24%;
-    --primary-foreground: 0 0% 98%;
+    /* Saffron Orange #FF6F00 → hsl(26, 100%, 50%) */
+    --primary: 26 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 122 54% 33%;
+    /* Deep Green #1B5E20 → hsl(123, 56%, 24%) */
+    --secondary: 123 56% 24%;
     --secondary-foreground: 0 0% 98%;
 
-    --accent: 22 89% 54%;
+    /* Navy Blue (Ashoka Chakra) #1A237E → hsl(235, 66%, 30%) */
+    --accent: 235 66% 30%;
     --accent-foreground: 0 0% 100%;
 
-    --highlight: 46 92% 53%;
+    /* Gold highlight */
+    --highlight: 43 96% 56%;
     --highlight-foreground: 0 0% 13%;
 
-    --muted: 30 50% 94%;
+    --muted: 43 40% 94%;
     --muted-foreground: 0 0% 40%;
 
     --destructive: 0 74% 47%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 30 20% 88%;
-    --input: 30 20% 88%;
-    --ring: 22 89% 54%;
+    --border: 43 20% 88%;
+    --input: 43 20% 88%;
+    --ring: 26 100% 50%;
 
     --radius: 0.75rem;
 
-    --section-bg: 30 100% 94%;
+    --section-bg: 43 100% 96%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -48,32 +52,32 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 235 66% 30%;
   }
 
   .dark {
-    --background: 210 30% 8%;
-    --foreground: 30 33% 95%;
-    --card: 210 30% 12%;
-    --card-foreground: 30 33% 95%;
-    --popover: 210 30% 12%;
-    --popover-foreground: 30 33% 95%;
-    --primary: 30 33% 90%;
-    --primary-foreground: 210 30% 10%;
-    --secondary: 122 54% 33%;
+    --background: 220 20% 8%;
+    --foreground: 43 30% 95%;
+    --card: 220 20% 12%;
+    --card-foreground: 43 30% 95%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 43 30% 95%;
+    --primary: 26 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 123 56% 30%;
     --secondary-foreground: 0 0% 98%;
-    --accent: 22 89% 54%;
+    --accent: 235 66% 45%;
     --accent-foreground: 0 0% 100%;
-    --highlight: 46 92% 53%;
+    --highlight: 43 96% 56%;
     --highlight-foreground: 0 0% 13%;
-    --muted: 210 20% 18%;
-    --muted-foreground: 30 10% 60%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 43 10% 60%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 20% 20%;
-    --input: 210 20% 20%;
-    --ring: 22 89% 54%;
-    --section-bg: 210 25% 12%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 26 100% 50%;
+    --section-bg: 220 20% 10%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -81,7 +85,7 @@
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 235 66% 30%;
   }
 }
 
@@ -99,15 +103,24 @@
 
 @layer utilities {
   .gradient-saffron {
-    background: linear-gradient(135deg, hsl(22 89% 54%), hsl(46 92% 53%));
+    background: linear-gradient(135deg, hsl(26 100% 50%), hsl(43 96% 56%));
+  }
+  .gradient-tricolor {
+    background: linear-gradient(180deg, hsl(26 100% 50% / 0.08) 0%, hsl(0 0% 100%) 40%, hsl(123 56% 24% / 0.06) 100%);
+  }
+  .gradient-tricolor-line {
+    background: linear-gradient(90deg, hsl(26 100% 50%), hsl(0 0% 100%), hsl(123 56% 24%));
   }
   .gradient-cultural {
-    background: linear-gradient(135deg, hsl(210 30% 24%), hsl(210 30% 34%));
+    background: linear-gradient(135deg, hsl(235 66% 30%), hsl(235 66% 20%));
   }
   .mandala-bg {
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F37021' fill-opacity='0.04'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20v20h20zm0 0c0 11.046 8.954 20 20 20V30H30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF6F00' fill-opacity='0.04'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20v20h20zm0 0c0 11.046 8.954 20 20 20V30H30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
   .rangoli-bg {
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F5C518' fill-opacity='0.05'%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3Ccircle cx='40' cy='40' r='10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231A237E' fill-opacity='0.03'%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3Ccircle cx='40' cy='40' r='10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .chakra-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%231A237E' stroke-opacity='0.04' stroke-width='1'%3E%3Ccircle cx='60' cy='60' r='40'/%3E%3Ccircle cx='60' cy='60' r='30'/%3E%3Ccircle cx='60' cy='60' r='20'/%3E%3Cline x1='60' y1='20' x2='60' y2='100'/%3E%3Cline x1='20' y1='60' x2='100' y2='60'/%3E%3Cline x1='31.7' y1='31.7' x2='88.3' y2='88.3'/%3E%3Cline x1='88.3' y1='31.7' x2='31.7' y2='88.3'/%3E%3C/g%3E%3C/svg%3E");
   }
 }

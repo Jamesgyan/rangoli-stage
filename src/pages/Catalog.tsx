@@ -34,6 +34,7 @@ const Catalog = () => {
         <div className="container mx-auto px-4">
           <h1 className="font-heading font-bold text-3xl md:text-4xl mb-2">Art Form Catalog</h1>
           <p className="text-muted-foreground mb-8">Explore and book traditional folk art performances</p>
+          <div className="h-1 gradient-tricolor-line rounded-full mb-8" />
 
           {/* Art Forms Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
@@ -44,7 +45,7 @@ const Catalog = () => {
 
           <div className="flex flex-col md:flex-row gap-8">
             {/* Filters */}
-            <div className="w-full md:w-64 space-y-6 bg-card rounded-lg p-6 shadow-sm h-fit">
+            <div className="w-full md:w-64 space-y-6 bg-card rounded-lg p-6 shadow-sm h-fit border-t-4 border-t-accent">
               <div>
                 <Label className="font-heading font-semibold text-base mb-3 block">Region</Label>
                 {regions.map((r) => (
