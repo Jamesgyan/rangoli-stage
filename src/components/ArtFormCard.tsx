@@ -4,7 +4,7 @@ import type { ArtForm } from "@/data/mockData";
 
 const ArtFormCard = ({ artForm }: { artForm: ArtForm }) => (
   <Link to={`/catalog?artForm=${artForm.id}`}>
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group border-t-4 border-t-primary">
       <div className="relative h-44 overflow-hidden">
         <img
           src={artForm.image}

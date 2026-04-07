@@ -26,9 +26,10 @@ const SearchPage = () => {
 
   return (
     <Layout>
-      <section className="bg-section rangoli-bg min-h-screen py-10">
+      <section className="bg-section chakra-bg min-h-screen py-10">
         <div className="container mx-auto px-4">
           <h1 className="font-heading font-bold text-3xl md:text-4xl mb-6">Search Artists</h1>
+          <div className="h-1 gradient-tricolor-line rounded-full mb-8" />
 
           {/* Search Inputs */}
           <div className="flex flex-col md:flex-row gap-4 mb-8">
@@ -44,7 +45,7 @@ const SearchPage = () => {
 
           <div className="flex flex-col md:flex-row gap-8">
             {/* Filters */}
-            <div className="w-full md:w-64 space-y-6 bg-card rounded-lg p-6 shadow-sm h-fit">
+            <div className="w-full md:w-64 space-y-6 bg-card rounded-lg p-6 shadow-sm h-fit border-t-4 border-t-accent">
               <div>
                 <Label className="font-heading font-semibold text-base mb-3 block">
                   Price: ₹{priceRange[0].toLocaleString()} - ₹{priceRange[1].toLocaleString()}
