@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
+import PageTransition from "@/components/PageTransition";
 import RatingStars from "@/components/RatingStars";
+import ReviewForm from "@/components/ReviewForm";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
