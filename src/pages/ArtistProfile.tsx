@@ -27,6 +27,7 @@ const ArtistProfile = () => {
 
   return (
     <Layout>
+      <PageTransition>
       <section className="bg-section chakra-bg py-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -68,6 +69,7 @@ const ArtistProfile = () => {
                   </div>
                 </CardContent>
               </Card>
+              <ReviewForm artistId={artist.id} artistName={artist.name} />
             </div>
 
             {/* Right: Info sidebar */}
@@ -127,6 +129,7 @@ const ArtistProfile = () => {
           </div>
         </div>
       </section>
+      </PageTransition>
     </Layout>
   );
 };
