@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
+import PageTransition from "@/components/PageTransition";
 import RatingStars from "@/components/RatingStars";
+import ReviewForm from "@/components/ReviewForm";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -25,6 +27,7 @@ const ArtistProfile = () => {
 
   return (
     <Layout>
+      <PageTransition>
       <section className="bg-section chakra-bg py-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -66,6 +69,7 @@ const ArtistProfile = () => {
                   </div>
                 </CardContent>
               </Card>
+              <ReviewForm artistId={artist.id} artistName={artist.name} />
             </div>
 
             {/* Right: Info sidebar */}
@@ -125,6 +129,7 @@ const ArtistProfile = () => {
           </div>
         </div>
       </section>
+      </PageTransition>
     </Layout>
   );
 };
