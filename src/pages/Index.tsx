@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Search, Calendar, PartyPopper, Users, Trophy, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
+import PageTransition from "@/components/PageTransition";
 import ArtFormCard from "@/components/ArtFormCard";
+import AutoScrollTestimonials from "@/components/AutoScrollTestimonials";
 import { artForms } from "@/data/mockData";
 import logo from "@/assets/indisara-logo.jpeg";
 
@@ -20,7 +22,7 @@ const staggerContainer = {
 const Index = () => {
   return (
     <Layout>
-      {/* Hero — Tricolor gradient */}
+      <PageTransition>
       <section className="relative gradient-tricolor overflow-hidden chakra-bg">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -162,6 +164,23 @@ const Index = () => {
         </div>
       </motion.section>
 
+      {/* Testimonials — Auto scroll */}
+      <motion.section
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        className="py-16 bg-card mandala-bg"
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-2">What Our Clients Say</h2>
+          <p className="text-muted-foreground mb-8">Real reviews from real celebrations</p>
+          <AutoScrollTestimonials />
+        </div>
+      </motion.section>
+
+      <div className="h-1 gradient-tricolor-line" />
+
       {/* CTA */}
       <motion.section
         variants={fadeUp}
@@ -181,14 +200,15 @@ const Index = () => {
                 Find an Artist
               </Button>
             </Link>
-            <Link to="/login">
+            <Link to="/survey">
               <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground font-heading rounded-full">
-                Register as Artist
+                Share Feedback
               </Button>
             </Link>
           </div>
         </div>
       </motion.section>
+      </PageTransition>
     </Layout>
   );
 };
