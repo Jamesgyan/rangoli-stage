@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { artists, reviews } from "@/data/mockData";
-import { MapPin, BadgeCheck, Clock, IndianRupee } from "lucide-react";
+import { MapPin, BadgeCheck, Clock, IndianRupee, Share2 } from "lucide-react";
 
 const ArtistProfile = () => {
   const { id } = useParams();
