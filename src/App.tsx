@@ -4,12 +4,15 @@ import { AnimatePresence } from "framer-motion";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Catalog from "./pages/Catalog";
 import ArtistProfile from "./pages/ArtistProfile";
 import SearchPage from "./pages/SearchPage";
 import BookingPage from "./pages/BookingPage";
 import LoginPage from "./pages/LoginPage";
+import SelectRole from "./pages/SelectRole";
+import Dashboard from "./pages/Dashboard";
 import SurveyPage from "./pages/SurveyPage";
 import NotFound from "./pages/NotFound";
 
@@ -26,6 +29,8 @@ const AnimatedRoutes = () => {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/booking/:artistId" element={<BookingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/select-role" element={<SelectRole />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/survey" element={<SurveyPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -38,9 +43,11 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <AnimatedRoutes />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <AnimatedRoutes />
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { artists, reviews } from "@/data/mockData";
-import { MapPin, BadgeCheck, Clock, IndianRupee } from "lucide-react";
+import { MapPin, BadgeCheck, Clock, IndianRupee, Share2 } from "lucide-react";
 
 const ArtistProfile = () => {
   const { id } = useParams();
@@ -115,6 +115,18 @@ const ArtistProfile = () => {
                     </Link>
                     <Button variant="outline" className="w-full border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground rounded-full">
                       Check Availability
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full gap-2 rounded-full border-green-600 text-green-700 hover:bg-green-50"
+                      onClick={() => {
+                        const url = window.location.href;
+                        const text = `Check out ${artist.name} (${artist.artForm}) on INDISARA! ${url}`;
+                        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+                      }}
+                    >
+                      <Share2 size={16} />
+                      Share on WhatsApp
                     </Button>
                   </div>
                 </CardContent>

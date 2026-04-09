@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/indisara-logo.jpeg";
 
 const LoginPage = () => {
@@ -17,23 +19,32 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const { toast } = useToast();
+  const { login, loginWithGoogle, user } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    login(email, isLogin ? undefined : name);
     toast({
       title: isLogin ? "Welcome back!" : "Account created!",
       description: isLogin
         ? "You have successfully logged in."
         : "Your account has been created. Welcome to INDISARA!",
     });
+    navigate("/select-role");
   };
 
   const handleGoogleLogin = () => {
-    toast({
-      title: "Google Sign-In",
-      description: "Google authentication will be available once backend is connected.",
-    });
+    loginWithGoogle();
+    toast({ title: "Google Sign-In", description: "Signed in with Google successfully!" });
+    navigate("/select-role");
   };
+
+  // If already logged in with role, go to dashboard
+  if (user?.role) {
+    navigate("/dashboard");
+    return null;
+  }
 
   return (
     <Layout>
@@ -57,7 +68,6 @@ const LoginPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Google Sign-In */}
               <Button
                 variant="outline"
                 className="w-full h-11 font-medium gap-3 hover:border-primary hover:text-primary transition-colors"
@@ -79,7 +89,6 @@ const LoginPage = () => {
                 </span>
               </div>
 
-              {/* Email Form */}
               <form onSubmit={handleSubmit} className="space-y-4">
                 {!isLogin && (
                   <div className="space-y-2">
