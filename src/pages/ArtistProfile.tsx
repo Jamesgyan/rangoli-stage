@@ -116,6 +116,18 @@ const ArtistProfile = () => {
                     <Button variant="outline" className="w-full border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground rounded-full">
                       Check Availability
                     </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full gap-2 rounded-full border-green-600 text-green-700 hover:bg-green-50"
+                      onClick={() => {
+                        const url = window.location.href;
+                        const text = `Check out ${artist.name} (${artist.artForm}) on INDISARA! ${url}`;
+                        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+                      }}
+                    >
+                      <Share2 size={16} />
+                      Share on WhatsApp
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
