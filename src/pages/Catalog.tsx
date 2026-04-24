@@ -6,27 +6,19 @@ import ArtFormCard from "@/components/ArtFormCard";
 import { artists, artForms } from "@/data/mockData";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
-
-const regions = ["Coastal", "South Karnataka", "North Karnataka"];
 
 const Catalog = () => {
   const [searchParams] = useSearchParams();
   const selectedArtForm = searchParams.get("artForm");
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState([0, 30000]);
-
-  const toggleRegion = (r: string) =>
-    setSelectedRegions((prev) => (prev.includes(r) ? prev.filter((x) => x !== r) : [...prev, r]));
 
   const filteredArtists = useMemo(() => {
     return artists.filter((a) => {
       if (selectedArtForm && a.artForm.toLowerCase().replace(/\s/g, "-") !== selectedArtForm) return false;
-      if (selectedRegions.length && !selectedRegions.includes(a.region)) return false;
       if (a.price < priceRange[0] || a.price > priceRange[1]) return false;
       return true;
     });
-  }, [selectedArtForm, selectedRegions, priceRange]);
+  }, [selectedArtForm, priceRange]);
 
   return (
     <Layout>
@@ -47,14 +39,12 @@ const Catalog = () => {
             {/* Filters */}
             <div className="w-full md:w-64 space-y-6 bg-card rounded-lg p-6 shadow-sm h-fit border-t-4 border-t-accent">
               <div>
-                <Label className="font-heading font-semibold text-base mb-3 block">Region</Label>
-                {regions.map((r) => (
-                  <label key={r} className="flex items-center gap-2 py-1 cursor-pointer">
-                    <Checkbox checked={selectedRegions.includes(r)} onCheckedChange={() => toggleRegion(r)} />
-                    <span className="text-sm">{r}</span>
-                  </label>
-                ))}
+                <Label className="font-heading font-semibold text-base mb-3 block">
+                  Price Range: ₹{priceRange[0].toLocaleString()} - ₹{priceRange[1].toLocaleString()}
+                </Label>
+                <Slider min={0} max={30000} step={1000} value={priceRange} onValueChange={setPriceRange} className="mt-2" />
               </div>
+            </div>
               <div>
                 <Label className="font-heading font-semibold text-base mb-3 block">
                   Price Range: ₹{priceRange[0].toLocaleString()} - ₹{priceRange[1].toLocaleString()}
