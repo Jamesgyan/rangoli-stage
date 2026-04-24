@@ -41,7 +41,7 @@ const Footer = () => (
           <div className="space-y-2 text-sm text-secondary-foreground/70">
             <p>📧 hello@indisara.com</p>
             <p>📞 +91 98765 43210</p>
-            <p>📍 Bengaluru, Karnataka</p>
+            <p>📍 India</p>
           </div>
           <div className="flex gap-3 mt-4">
             <span className="w-8 h-8 rounded-full bg-secondary-foreground/10 flex items-center justify-center text-xs hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">fb</span>
