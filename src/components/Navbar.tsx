@@ -55,7 +55,7 @@ const Navbar = () => {
           ) : (
             <Link to="/login">
               <Button size="sm" className="gradient-saffron text-primary-foreground font-heading rounded-full px-6 hover:opacity-90 shadow-warm">
-                Join as an Artist
+                Login
               </Button>
             </Link>
           )}
@@ -94,7 +94,7 @@ const Navbar = () => {
           ) : (
             <Link to="/login" onClick={() => setOpen(false)}>
               <Button size="sm" className="mt-2 gradient-saffron text-primary-foreground font-heading rounded-full px-6">
-                Join as an Artist
+                Login
               </Button>
             </Link>
           )}
