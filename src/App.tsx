@@ -13,7 +13,7 @@ import BookingPage from "./pages/BookingPage";
 import LoginPage from "./pages/LoginPage";
 import SelectRole from "./pages/SelectRole";
 import Dashboard from "./pages/Dashboard";
-import SurveyPage from "./pages/SurveyPage";
+
 import Learning from "./pages/Learning";
 import NotFound from "./pages/NotFound";
 
@@ -32,7 +32,7 @@ const AnimatedRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/select-role" element={<SelectRole />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/survey" element={<SurveyPage />} />
+        
         <Route path="/learning" element={<Learning />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

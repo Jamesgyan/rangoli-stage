@@ -7,7 +7,7 @@ import logo from "@/assets/indisara-logo.jpeg";
 
 const navLinks = [
   { label: "Home", to: "/" },
-  { label: "About", to: "/survey" },
+  
   { label: "Artists", to: "/catalog" },
   { label: "Learning", to: "/learning" },
   { label: "Contact", to: "/search" },
