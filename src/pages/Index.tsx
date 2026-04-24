@@ -157,37 +157,7 @@ const Index = () => {
           </div>
         </motion.section>
 
-        {/* TRUST */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="py-16 bg-secondary text-secondary-foreground"
-        >
-          <div className="container mx-auto px-4">
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
-            >
-              {[
-                { icon: Users, value: "150+", label: "Folk Artists" },
-                { icon: Trophy, value: "2,500+", label: "Events Completed" },
-                { icon: MapPin, value: "45+", label: "Cities Covered" },
-                { icon: PartyPopper, value: "98%", label: "Client Satisfaction" },
-              ].map((stat) => (
-                <motion.div key={stat.label} variants={fadeUp} className="flex flex-col items-center">
-                  <stat.icon size={28} className="text-highlight mb-2" />
-                  <span className="font-heading font-extrabold text-3xl md:text-4xl">{stat.value}</span>
-                  <span className="text-secondary-foreground/70 text-sm mt-1">{stat.label}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </motion.section>
+        {/* TRUST stats removed per request — no fake data */}
 
         {/* WHY CHOOSE US */}
         <motion.section
