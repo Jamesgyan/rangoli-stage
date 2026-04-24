@@ -45,13 +45,6 @@ const Catalog = () => {
                 <Slider min={0} max={30000} step={1000} value={priceRange} onValueChange={setPriceRange} className="mt-2" />
               </div>
             </div>
-              <div>
-                <Label className="font-heading font-semibold text-base mb-3 block">
-                  Price Range: ₹{priceRange[0].toLocaleString()} - ₹{priceRange[1].toLocaleString()}
-                </Label>
-                <Slider min={0} max={30000} step={1000} value={priceRange} onValueChange={setPriceRange} className="mt-2" />
-              </div>
-            </div>
 
             {/* Artists Grid */}
             <div className="flex-1">
