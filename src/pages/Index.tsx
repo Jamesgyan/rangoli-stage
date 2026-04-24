@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Search, Calendar, PartyPopper, Users, Trophy, MapPin, GraduationCap, Video, Award, Sparkles } from "lucide-react";
+import { Search, Calendar, PartyPopper, GraduationCap, Video, Award, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import PageTransition from "@/components/PageTransition";
 import ArtFormCard from "@/components/ArtFormCard";
 import { artForms } from "@/data/mockData";
+import { useAuth } from "@/contexts/AuthContext";
 import heroIllustration from "@/assets/hero-illustration.png";
 import dholImg from "@/assets/illustration-dhol-player.png";
 import dancerImg from "@/assets/illustration-classical-dancer.png";
