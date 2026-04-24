@@ -7,9 +7,10 @@ import logo from "@/assets/indisara-logo.jpeg";
 
 const navLinks = [
   { label: "Home", to: "/" },
-  { label: "Art Forms", to: "/catalog" },
-  { label: "Search", to: "/search" },
-  { label: "Survey", to: "/survey" },
+  { label: "About", to: "/survey" },
+  { label: "Artists", to: "/catalog" },
+  { label: "Learning", to: "/learning" },
+  { label: "Contact", to: "/search" },
 ];
 
 const Navbar = () => {
@@ -53,8 +54,8 @@ const Navbar = () => {
             </div>
           ) : (
             <Link to="/login">
-              <Button size="sm" className="gradient-saffron text-white font-heading rounded-full px-6 hover:opacity-90 shadow-md">
-                Login
+              <Button size="sm" className="gradient-saffron text-primary-foreground font-heading rounded-full px-6 hover:opacity-90 shadow-warm">
+                Join as an Artist
               </Button>
             </Link>
           )}
@@ -92,8 +93,8 @@ const Navbar = () => {
             </>
           ) : (
             <Link to="/login" onClick={() => setOpen(false)}>
-              <Button size="sm" className="mt-2 gradient-saffron text-white font-heading rounded-full px-6">
-                Login
+              <Button size="sm" className="mt-2 gradient-saffron text-primary-foreground font-heading rounded-full px-6">
+                Join as an Artist
               </Button>
             </Link>
           )}
