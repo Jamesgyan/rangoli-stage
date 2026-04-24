@@ -30,9 +30,9 @@ const Footer = () => (
           <h4 className="font-heading font-semibold mb-3">Art Forms</h4>
           <div className="space-y-2 text-sm text-secondary-foreground/70">
             <p>Yakshagana</p>
-            <p>Dollu Kunitha</p>
             <p>Bharatanatyam</p>
-            <p>Huli Vesha</p>
+            <p>Folk Dance</p>
+            <p>Folk Music</p>
           </div>
         </div>
 
