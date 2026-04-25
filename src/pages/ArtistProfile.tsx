@@ -1,18 +1,28 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import PageTransition from "@/components/PageTransition";
 import RatingStars from "@/components/RatingStars";
-import ReviewForm from "@/components/ReviewForm";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { artists, reviews } from "@/data/mockData";
+import { useAuth } from "@/contexts/AuthContext";
 import { MapPin, BadgeCheck, Clock, IndianRupee, Share2 } from "lucide-react";
 
 const ArtistProfile = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const artist = artists.find((a) => a.id === id);
   const artistReviews = reviews.filter((r) => r.artistId === id);
+
+  const handleBook = () => {
+    if (!isAuthenticated) {
+      navigate("/login", { state: { redirectTo: `/booking/${id}` } });
+    } else {
+      navigate(`/booking/${id}`);
+    }
+  };
 
   if (!artist) {
     return (
@@ -69,7 +79,7 @@ const ArtistProfile = () => {
                   </div>
                 </CardContent>
               </Card>
-              <ReviewForm artistId={artist.id} artistName={artist.name} />
+              
             </div>
 
             {/* Right: Info sidebar */}
@@ -108,17 +118,15 @@ const ArtistProfile = () => {
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    <Link to={`/booking/${artist.id}`}>
-                      <Button className="w-full gradient-saffron text-white font-heading font-semibold shadow-lg rounded-full">
-                        Book Now
-                      </Button>
-                    </Link>
-                    <Button variant="outline" className="w-full border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground rounded-full">
-                      Check Availability
+                    <Button
+                      onClick={handleBook}
+                      className="w-full gradient-saffron text-primary-foreground font-heading font-semibold shadow-lg rounded-full"
+                    >
+                      Book Now
                     </Button>
                     <Button
                       variant="outline"
-                      className="w-full gap-2 rounded-full border-green-600 text-green-700 hover:bg-green-50"
+                      className="w-full gap-2 rounded-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
                       onClick={() => {
                         const url = window.location.href;
                         const text = `Check out ${artist.name} (${artist.artForm}) on INDISARA! ${url}`;

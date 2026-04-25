@@ -23,6 +23,12 @@ const staggerContainer = {
 };
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const handleBookCTA = () => {
+    if (isAuthenticated) navigate("/catalog");
+    else navigate("/login");
+  };
   return (
     <Layout>
       <PageTransition>
@@ -45,14 +51,16 @@ const Index = () => {
                 Book authentic folk artists for weddings, corporate events, and cultural festivals — all in one platform.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link to="/catalog">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-heading font-semibold px-8 rounded-full shadow-warm">
-                    <Search size={18} /> Book an Artist
-                  </Button>
-                </Link>
+                <Button
+                  size="lg"
+                  onClick={handleBookCTA}
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 font-heading font-semibold px-8 rounded-full shadow-warm"
+                >
+                  <Search size={18} /> Book an Artist
+                </Button>
                 <Link to="/login">
                   <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground font-heading rounded-full">
-                    Join as an Artist
+                    Login
                   </Button>
                 </Link>
               </div>
@@ -263,11 +271,13 @@ const Index = () => {
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
               From intimate gatherings to grand celebrations — bring living tradition to your stage.
             </p>
-            <Link to="/catalog">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-heading rounded-full px-10 shadow-warm">
-                Book Now
-              </Button>
-            </Link>
+            <Button
+              size="lg"
+              onClick={handleBookCTA}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-heading rounded-full px-10 shadow-warm"
+            >
+              Book Now
+            </Button>
           </div>
         </motion.section>
       </PageTransition>

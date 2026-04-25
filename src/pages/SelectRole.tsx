@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
@@ -12,11 +12,13 @@ const SelectRole = () => {
   const [selected, setSelected] = useState<"client" | "artist" | null>(null);
   const { setRole } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = (location.state as { redirectTo?: string } | null)?.redirectTo;
 
   const handleConfirm = () => {
     if (!selected) return;
     setRole(selected);
-    navigate("/dashboard");
+    navigate(redirectTo || "/dashboard");
   };
 
   const roles = [
