@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,14 @@ const LoginPage = () => {
   const { toast } = useToast();
   const { login, loginWithGoogle, user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = (location.state as { redirectTo?: string } | null)?.redirectTo;
+
+  const goNext = (hasRole: boolean) => {
+    if (redirectTo && hasRole) navigate(redirectTo);
+    else if (redirectTo) navigate("/select-role", { state: { redirectTo } });
+    else navigate("/select-role");
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,18 +39,18 @@ const LoginPage = () => {
         ? "You have successfully logged in."
         : "Your account has been created. Welcome to INDISARA!",
     });
-    navigate("/select-role");
+    goNext(false);
   };
 
   const handleGoogleLogin = () => {
     loginWithGoogle();
     toast({ title: "Google Sign-In", description: "Signed in with Google successfully!" });
-    navigate("/select-role");
+    goNext(false);
   };
 
-  // If already logged in with role, go to dashboard
+  // If already logged in with role, go to redirect target or dashboard
   if (user?.role) {
-    navigate("/dashboard");
+    navigate(redirectTo || "/dashboard");
     return null;
   }
 
