@@ -1,13 +1,28 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import PageTransition from "@/components/PageTransition";
 import RatingStars from "@/components/RatingStars";
-import ReviewForm from "@/components/ReviewForm";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { artists, reviews } from "@/data/mockData";
+import { useAuth } from "@/contexts/AuthContext";
 import { MapPin, BadgeCheck, Clock, IndianRupee, Share2 } from "lucide-react";
+
+const ArtistProfile = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const artist = artists.find((a) => a.id === id);
+  const artistReviews = reviews.filter((r) => r.artistId === id);
+
+  const handleBook = () => {
+    if (!isAuthenticated) {
+      navigate("/login", { state: { redirectTo: `/booking/${id}` } });
+    } else {
+      navigate(`/booking/${id}`);
+    }
+  };
 
 const ArtistProfile = () => {
   const { id } = useParams();
