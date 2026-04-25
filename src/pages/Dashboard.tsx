@@ -5,29 +5,18 @@ import PageTransition from "@/components/PageTransition";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { Search, Calendar, User, Music, Settings, LogOut } from "lucide-react";
+import { Search, Calendar, User, LogOut } from "lucide-react";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
 
   if (!user) return <Navigate to="/login" replace />;
-  if (!user.role) return <Navigate to="/select-role" replace />;
 
-  const isClient = user.role === "client";
-
-  const clientActions = [
+  const actions = [
     { icon: Search, label: "Browse Artists", to: "/catalog", color: "border-t-primary" },
     { icon: Calendar, label: "My Bookings", to: "#", color: "border-t-secondary" },
     { icon: User, label: "My Profile", to: "#", color: "border-t-accent" },
   ];
-
-  const artistActions = [
-    { icon: Music, label: "My Performances", to: "#", color: "border-t-primary" },
-    { icon: Calendar, label: "Booking Requests", to: "#", color: "border-t-secondary" },
-    { icon: User, label: "Edit Profile", to: "#", color: "border-t-accent" },
-  ];
-
-  const actions = isClient ? clientActions : artistActions;
 
   return (
     <Layout>
@@ -39,18 +28,11 @@ const Dashboard = () => {
                 <h1 className="font-heading font-bold text-3xl">
                   Welcome, <span className="text-primary">{user.name}</span>
                 </h1>
-                <p className="text-muted-foreground capitalize">{user.role} Dashboard</p>
+                <p className="text-muted-foreground">My Dashboard</p>
               </div>
-              <div className="flex gap-2">
-                <Link to="/select-role">
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Settings size={16} /> Change Role
-                  </Button>
-                </Link>
-                <Button variant="outline" size="sm" className="gap-2 text-destructive" onClick={logout}>
-                  <LogOut size={16} /> Logout
-                </Button>
-              </div>
+              <Button variant="outline" size="sm" className="gap-2 text-destructive" onClick={logout}>
+                <LogOut size={16} /> Logout
+              </Button>
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
