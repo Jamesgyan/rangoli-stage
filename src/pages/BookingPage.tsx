@@ -213,7 +213,7 @@ const BookingPage = () => {
                   <div className="space-y-1.5">
                     <Label htmlFor="category">Select Category</Label>
                     <Select value={form.category} onValueChange={(v) => update("category", v)}>
-                      <SelectTrigger id="category" className="bg-muted/60 rounded-xl">
+                      <SelectTrigger id="category" className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40">
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
                       <SelectContent>
@@ -235,7 +235,7 @@ const BookingPage = () => {
                       placeholder="Enter Name Here"
                       value={form.name}
                       onChange={(e) => update("name", e.target.value)}
-                      className="bg-muted/60 rounded-xl"
+                      className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40"
                       maxLength={100}
                     />
                     {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
@@ -249,7 +249,7 @@ const BookingPage = () => {
                       placeholder="Enter Mobile Number"
                       value={form.mobile}
                       onChange={(e) => update("mobile", e.target.value)}
-                      className="bg-muted/60 rounded-xl"
+                      className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40"
                       maxLength={15}
                       inputMode="tel"
                     />
@@ -265,7 +265,7 @@ const BookingPage = () => {
                       placeholder="Enter Email Here"
                       value={form.email}
                       onChange={(e) => update("email", e.target.value)}
-                      className="bg-muted/60 rounded-xl"
+                      className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40"
                       maxLength={255}
                     />
                     {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
@@ -275,7 +275,7 @@ const BookingPage = () => {
                   <div className="space-y-1.5">
                     <Label htmlFor="genre">Genre</Label>
                     <Select value={form.genre} onValueChange={(v) => update("genre", v)}>
-                      <SelectTrigger id="genre" className="bg-muted/60 rounded-xl">
+                      <SelectTrigger id="genre" className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40">
                         <SelectValue placeholder="Select genre" />
                       </SelectTrigger>
                       <SelectContent>
@@ -293,7 +293,7 @@ const BookingPage = () => {
                   <div className="space-y-1.5">
                     <Label htmlFor="event">Event</Label>
                     <Select value={form.event} onValueChange={(v) => update("event", v)}>
-                      <SelectTrigger id="event" className="bg-muted/60 rounded-xl">
+                      <SelectTrigger id="event" className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40">
                         <SelectValue placeholder="Select event" />
                       </SelectTrigger>
                       <SelectContent>
@@ -315,7 +315,7 @@ const BookingPage = () => {
                       type="date"
                       value={form.eventDate}
                       onChange={(e) => update("eventDate", e.target.value)}
-                      className="bg-muted/60 rounded-xl"
+                      className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40"
                       min={new Date().toISOString().split("T")[0]}
                     />
                     {errors.eventDate && (
@@ -330,7 +330,7 @@ const BookingPage = () => {
                       value={form.locationType}
                       onValueChange={(v) => update("locationType", v)}
                     >
-                      <SelectTrigger id="locationType" className="bg-muted/60 rounded-xl">
+                      <SelectTrigger id="locationType" className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40">
                         <SelectValue placeholder="Select Location Type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -354,7 +354,7 @@ const BookingPage = () => {
                       placeholder="Enter Location Here"
                       value={form.location}
                       onChange={(e) => update("location", e.target.value)}
-                      className="bg-muted/60 rounded-xl"
+                      className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40"
                       maxLength={200}
                     />
                     {errors.location && (
@@ -366,7 +366,7 @@ const BookingPage = () => {
                   <div className="space-y-1.5">
                     <Label htmlFor="budget">Budget</Label>
                     <Select value={form.budget} onValueChange={(v) => update("budget", v)}>
-                      <SelectTrigger id="budget" className="bg-muted/60 rounded-xl">
+                      <SelectTrigger id="budget" className="bg-background border-border/60 rounded-xl focus-visible:ring-primary/40">
                         <SelectValue placeholder="Select Budget" />
                       </SelectTrigger>
                       <SelectContent>
