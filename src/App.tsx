@@ -11,7 +11,7 @@ import ArtistProfile from "./pages/ArtistProfile";
 import SearchPage from "./pages/SearchPage";
 import BookingPage from "./pages/BookingPage";
 import LoginPage from "./pages/LoginPage";
-import SelectRole from "./pages/SelectRole";
+
 import Dashboard from "./pages/Dashboard";
 
 import Learning from "./pages/Learning";
@@ -30,7 +30,7 @@ const AnimatedRoutes = () => {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/booking/:artistId" element={<BookingPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/select-role" element={<SelectRole />} />
+        
         <Route path="/dashboard" element={<Dashboard />} />
         
         <Route path="/learning" element={<Learning />} />

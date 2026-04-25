@@ -24,10 +24,8 @@ const LoginPage = () => {
   const location = useLocation();
   const redirectTo = (location.state as { redirectTo?: string } | null)?.redirectTo;
 
-  const goNext = (hasRole: boolean) => {
-    if (redirectTo && hasRole) navigate(redirectTo);
-    else if (redirectTo) navigate("/select-role", { state: { redirectTo } });
-    else navigate("/select-role");
+  const goNext = () => {
+    navigate(redirectTo || "/dashboard");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -39,17 +37,17 @@ const LoginPage = () => {
         ? "You have successfully logged in."
         : "Your account has been created. Welcome to INDISARA!",
     });
-    goNext(false);
+    goNext();
   };
 
   const handleGoogleLogin = () => {
     loginWithGoogle();
     toast({ title: "Google Sign-In", description: "Signed in with Google successfully!" });
-    goNext(false);
+    goNext();
   };
 
-  // If already logged in with role, go to redirect target or dashboard
-  if (user?.role) {
+  // If already logged in, go to redirect target or dashboard
+  if (user) {
     navigate(redirectTo || "/dashboard");
     return null;
   }

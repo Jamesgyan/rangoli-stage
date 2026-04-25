@@ -43,8 +43,8 @@ const Navbar = () => {
           {isAuthenticated ? (
             <div className="flex items-center gap-3">
               <Link to="/dashboard">
-                <Button size="sm" variant="outline" className="rounded-full px-4 capitalize">
-                  {user?.role ? `${user.role} Dashboard` : "Dashboard"}
+                <Button size="sm" variant="outline" className="rounded-full px-4">
+                  My Dashboard
                 </Button>
               </Link>
               <Button size="sm" variant="ghost" onClick={logout} className="text-destructive gap-1">
@@ -82,8 +82,8 @@ const Navbar = () => {
           {isAuthenticated ? (
             <>
               <Link to="/dashboard" onClick={() => setOpen(false)}>
-                <Button size="sm" variant="outline" className="mt-2 rounded-full px-4 capitalize">
-                  {user?.role ? `${user.role} Dashboard` : "Dashboard"}
+                <Button size="sm" variant="outline" className="mt-2 rounded-full px-4">
+                  My Dashboard
                 </Button>
               </Link>
               <Button size="sm" variant="ghost" onClick={() => { logout(); setOpen(false); }} className="mt-2 text-destructive gap-1">
