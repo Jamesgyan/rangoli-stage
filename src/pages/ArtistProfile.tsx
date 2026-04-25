@@ -24,11 +24,6 @@ const ArtistProfile = () => {
     }
   };
 
-const ArtistProfile = () => {
-  const { id } = useParams();
-  const artist = artists.find((a) => a.id === id);
-  const artistReviews = reviews.filter((r) => r.artistId === id);
-
   if (!artist) {
     return (
       <Layout>
