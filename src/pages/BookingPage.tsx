@@ -385,9 +385,9 @@ const BookingPage = () => {
                     <Button
                       type="submit"
                       size="lg"
-                      className="bg-gradient-to-b from-destructive to-secondary text-primary-foreground font-heading font-semibold rounded-xl px-16 shadow-warm hover:opacity-90"
+                      className="gradient-saffron text-primary-foreground font-heading font-semibold rounded-full px-16 shadow-warm hover:opacity-90 transition-all"
                     >
-                      Submit
+                      Submit Booking
                     </Button>
                   </div>
                 </form>
