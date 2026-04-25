@@ -1,174 +1,401 @@
-import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { z } from "zod";
 import Layout from "@/components/Layout";
+import PageTransition from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CalendarIcon, CheckCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CheckCircle2, Mail } from "lucide-react";
 import { artists } from "@/data/mockData";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "@/hooks/use-toast";
 
-const steps = ["Select Artist", "Choose Date", "Event Details", "Review & Confirm"];
+const CATEGORIES = ["Singer", "Dancer", "Instrumentalist", "Folk Group", "DJ", "Anchor"];
+const GENRES = ["Classical", "Folk", "Bollywood", "Sufi", "Devotional", "Fusion", "Other"];
+const EVENTS = [
+  "House Party",
+  "Wedding",
+  "Corporate Event",
+  "Festival",
+  "Temple Event",
+  "Birthday",
+  "Other",
+];
+const LOCATION_TYPES = ["Indoor", "Outdoor", "Banquet Hall", "Open Ground", "Auditorium"];
+const BUDGETS = [
+  "Under ₹10,000",
+  "₹10,000 – ₹25,000",
+  "₹25,000 – ₹50,000",
+  "₹50,000 – ₹1,00,000",
+  "Above ₹1,00,000",
+];
+
+const bookingSchema = z.object({
+  category: z.string().min(1, "Select a category"),
+  name: z.string().trim().min(2, "Enter your name").max(100),
+  mobile: z
+    .string()
+    .trim()
+    .regex(/^[0-9+\-\s]{7,15}$/i, "Enter a valid mobile number"),
+  email: z.string().trim().email("Enter a valid email").max(255),
+  genre: z.string().min(1, "Select a genre"),
+  event: z.string().min(1, "Select an event"),
+  eventDate: z.string().min(1, "Select event date"),
+  locationType: z.string().min(1, "Select location type"),
+  location: z.string().trim().min(2, "Enter location").max(200),
+  budget: z.string().min(1, "Select a budget"),
+});
+
+type BookingForm = z.infer<typeof bookingSchema>;
 
 const BookingPage = () => {
   const { artistId } = useParams();
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
   const artist = artists.find((a) => a.id === artistId);
-  const [step, setStep] = useState(artist ? 1 : 0);
-  const [date, setDate] = useState<Date>();
-  const [eventType, setEventType] = useState("");
-  const [eventLocation, setEventLocation] = useState("");
-  const [notes, setNotes] = useState("");
+
+  const [form, setForm] = useState<BookingForm>({
+    category: artist?.artForm?.toLowerCase().includes("danc") ? "Dancer" : "Singer",
+    name: user?.name ?? "",
+    mobile: "",
+    email: user?.email ?? "",
+    genre: "Classical",
+    event: "House Party",
+    eventDate: "",
+    locationType: "",
+    location: "",
+    budget: "",
+  });
+  const [errors, setErrors] = useState<Partial<Record<keyof BookingForm, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+
+  // Auth gate
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login", {
+        replace: true,
+        state: { redirectTo: `/booking/${artistId}` },
+      });
+    }
+  }, [isAuthenticated, navigate, artistId]);
 
   if (!artist) {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="font-heading font-bold text-2xl">Artist not found</h1>
-          <Link to="/catalog" className="text-primary underline mt-4 inline-block">Browse Artists</Link>
+          <Link to="/catalog" className="text-primary underline mt-4 inline-block">
+            Browse Artists
+          </Link>
         </div>
       </Layout>
     );
   }
 
+  const update = <K extends keyof BookingForm>(key: K, value: BookingForm[K]) => {
+    setForm((f) => ({ ...f, [key]: value }));
+    setErrors((e) => ({ ...e, [key]: undefined }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const parsed = bookingSchema.safeParse(form);
+    if (!parsed.success) {
+      const fieldErrors: Partial<Record<keyof BookingForm, string>> = {};
+      parsed.error.issues.forEach((issue) => {
+        const k = issue.path[0] as keyof BookingForm;
+        if (!fieldErrors[k]) fieldErrors[k] = issue.message;
+      });
+      setErrors(fieldErrors);
+      toast({
+        title: "Please complete the form",
+        description: "Some fields need your attention.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Persist booking (visual-only — replace with backend when Cloud is enabled)
+    const booking = {
+      id: crypto.randomUUID(),
+      artistId: artist.id,
+      artistName: artist.name,
+      userId: user?.id,
+      ...parsed.data,
+      createdAt: new Date().toISOString(),
+      status: "pending",
+    };
+    const all = JSON.parse(localStorage.getItem("indisara_bookings") || "[]");
+    all.push(booking);
+    localStorage.setItem("indisara_bookings", JSON.stringify(all));
+
+    toast({
+      title: "Booking submitted ✓",
+      description: `A confirmation copy has been sent to ${parsed.data.email}.`,
+    });
+    setSubmitted(true);
+  };
+
   if (submitted) {
     return (
       <Layout>
-        <section className="bg-section chakra-bg min-h-screen flex items-center justify-center">
-          <Card className="max-w-md w-full mx-4 text-center shadow-lg border-t-4 border-t-secondary">
-            <CardContent className="p-8 space-y-4">
-              <CheckCircle size={64} className="mx-auto text-secondary" />
-              <h2 className="font-heading font-bold text-2xl">Booking Request Sent!</h2>
-              <p className="text-muted-foreground">Your booking request for <strong>{artist.name}</strong> has been sent. You'll receive a confirmation soon.</p>
-              <div className="bg-section rounded-lg p-4 text-sm space-y-1">
-                <p><strong>Artist:</strong> {artist.name} — {artist.artForm}</p>
-                <p><strong>Date:</strong> {date ? format(date, "PPP") : "N/A"}</p>
-                <p><strong>Event:</strong> {eventType}</p>
-                <p><strong>Location:</strong> {eventLocation}</p>
-                <p><strong>Amount:</strong> ₹{artist.price.toLocaleString()}</p>
-              </div>
-              <Link to="/">
-                <Button className="gradient-saffron text-white font-heading mt-4 rounded-full">Back to Home</Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </section>
+        <PageTransition>
+          <section className="bg-section chakra-bg min-h-[80vh] flex items-center justify-center py-16">
+            <Card className="max-w-lg w-full mx-4 text-center shadow-warm border-t-4 border-t-accent">
+              <CardContent className="p-8 space-y-4">
+                <CheckCircle2 size={64} className="mx-auto text-accent" />
+                <h2 className="font-heading font-bold text-2xl">Booking Request Sent!</h2>
+                <p className="text-muted-foreground">
+                  Your request to book <strong>{artist.name}</strong> has been received. Our team
+                  will contact you shortly.
+                </p>
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground bg-muted rounded-lg p-3">
+                  <Mail size={16} />
+                  A confirmation copy was sent to <strong>{form.email}</strong>
+                </div>
+                <div className="flex gap-3 justify-center pt-2">
+                  <Link to="/">
+                    <Button variant="outline" className="rounded-full">
+                      Back to Home
+                    </Button>
+                  </Link>
+                  <Link to="/dashboard">
+                    <Button className="bg-primary text-primary-foreground rounded-full">
+                      View Dashboard
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+        </PageTransition>
       </Layout>
     );
   }
 
   return (
     <Layout>
-      <section className="bg-section mandala-bg min-h-screen py-10">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <h1 className="font-heading font-bold text-3xl mb-6">Book {artist.name}</h1>
-
-          {/* Progress */}
-          <div className="flex items-center mb-8">
-            {steps.map((s, i) => (
-              <div key={s} className="flex items-center flex-1">
-                <div className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors",
-                  i <= step ? "gradient-saffron text-white" : "bg-muted text-muted-foreground"
-                )}>
-                  {i + 1}
-                </div>
-                <span className="hidden md:inline text-xs ml-2 text-muted-foreground">{s}</span>
-                {i < steps.length - 1 && <div className={cn("flex-1 h-0.5 mx-2", i < step ? "bg-primary" : "bg-muted")} />}
+      <PageTransition>
+        <section className="bg-section mandala-bg min-h-screen py-10">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="mb-6 flex items-center gap-4">
+              <img
+                src={artist.photo}
+                alt={artist.name}
+                className="w-14 h-14 rounded-full object-cover border-2 border-primary/30"
+              />
+              <div>
+                <h1 className="font-heading font-bold text-2xl md:text-3xl">
+                  Book <span className="text-primary">{artist.name}</span>
+                </h1>
+                <p className="text-sm text-muted-foreground">
+                  Fill in the details below and our team will confirm shortly.
+                </p>
               </div>
-            ))}
-          </div>
+            </div>
 
-          <Card className="shadow-lg border-t-4 border-t-primary">
-            <CardHeader>
-              <CardTitle className="font-heading">{steps[step]}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {step === 0 && (
-                <div className="flex items-center gap-4 p-4 bg-section rounded-lg">
-                  <img src={artist.photo} alt={artist.name} className="w-16 h-16 rounded-full object-cover" />
-                  <div>
-                    <p className="font-heading font-semibold">{artist.name}</p>
-                    <p className="text-sm text-primary">{artist.artForm}</p>
-                    <p className="text-sm text-muted-foreground">₹{artist.price.toLocaleString()}/event</p>
-                  </div>
-                </div>
-              )}
-
-              {step === 1 && (
-                <div>
-                  <Label className="mb-2 block">Select Event Date</Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" className={cn("w-full justify-start", !date && "text-muted-foreground")}>
-                        <CalendarIcon className="mr-2" size={16} />
-                        {date ? format(date, "PPP") : "Pick a date"}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar mode="single" selected={date} onSelect={setDate} disabled={(d) => d < new Date()} initialFocus className="p-3 pointer-events-auto" />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              )}
-
-              {step === 2 && (
-                <div className="space-y-4">
-                  <div>
-                    <Label>Event Type</Label>
-                    <Select value={eventType} onValueChange={setEventType}>
-                      <SelectTrigger><SelectValue placeholder="Select event type" /></SelectTrigger>
+            <Card className="shadow-warm border-t-4 border-t-primary rounded-2xl">
+              <CardContent className="p-6 md:p-8">
+                <form
+                  onSubmit={handleSubmit}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                >
+                  {/* Category */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="category">Select Category</Label>
+                    <Select value={form.category} onValueChange={(v) => update("category", v)}>
+                      <SelectTrigger id="category" className="bg-muted/60 rounded-xl">
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Wedding">Wedding</SelectItem>
-                        <SelectItem value="Corporate Event">Corporate Event</SelectItem>
-                        <SelectItem value="Festival">Festival</SelectItem>
-                        <SelectItem value="Temple Event">Temple Event</SelectItem>
-                        <SelectItem value="Private Party">Private Party</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
+                        {CATEGORIES.map((c) => (
+                          <SelectItem key={c} value={c}>
+                            {c.toUpperCase()}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
+                    {errors.category && <p className="text-xs text-destructive">{errors.category}</p>}
                   </div>
-                  <div>
-                    <Label>Event Location</Label>
-                    <Input placeholder="Enter venue / city" value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} />
-                  </div>
-                  <div>
-                    <Label>Special Notes</Label>
-                    <Textarea placeholder="Any special requirements..." value={notes} onChange={(e) => setNotes(e.target.value)} />
-                  </div>
-                </div>
-              )}
 
-              {step === 3 && (
-                <div className="space-y-3 bg-section rounded-lg p-4">
-                  <h3 className="font-heading font-semibold">Booking Summary</h3>
-                  <p><strong>Artist:</strong> {artist.name} — {artist.artForm}</p>
-                  <p><strong>Date:</strong> {date ? format(date, "PPP") : "Not selected"}</p>
-                  <p><strong>Event Type:</strong> {eventType || "Not specified"}</p>
-                  <p><strong>Location:</strong> {eventLocation || "Not specified"}</p>
-                  <p><strong>Notes:</strong> {notes || "None"}</p>
-                  <p className="text-lg font-heading font-bold text-primary">Total: ₹{artist.price.toLocaleString()}</p>
-                </div>
-              )}
+                  {/* Name */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      placeholder="Enter Name Here"
+                      value={form.name}
+                      onChange={(e) => update("name", e.target.value)}
+                      className="bg-muted/60 rounded-xl"
+                      maxLength={100}
+                    />
+                    {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
+                  </div>
 
-              <div className="flex justify-between pt-4">
-                <Button variant="outline" disabled={step === 0} onClick={() => setStep(step - 1)} className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground rounded-full">Back</Button>
-                {step < 3 ? (
-                  <Button className="gradient-saffron text-white font-heading rounded-full" onClick={() => setStep(step + 1)}>Next</Button>
-                ) : (
-                  <Button className="gradient-saffron text-white font-heading rounded-full" onClick={() => setSubmitted(true)}>Confirm Booking</Button>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+                  {/* Mobile */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="mobile">Mobile Number</Label>
+                    <Input
+                      id="mobile"
+                      placeholder="Enter Mobile Number"
+                      value={form.mobile}
+                      onChange={(e) => update("mobile", e.target.value)}
+                      className="bg-muted/60 rounded-xl"
+                      maxLength={15}
+                      inputMode="tel"
+                    />
+                    {errors.mobile && <p className="text-xs text-destructive">{errors.mobile}</p>}
+                  </div>
+
+                  {/* Email */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Enter Email Here"
+                      value={form.email}
+                      onChange={(e) => update("email", e.target.value)}
+                      className="bg-muted/60 rounded-xl"
+                      maxLength={255}
+                    />
+                    {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
+                  </div>
+
+                  {/* Genre */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="genre">Genre</Label>
+                    <Select value={form.genre} onValueChange={(v) => update("genre", v)}>
+                      <SelectTrigger id="genre" className="bg-muted/60 rounded-xl">
+                        <SelectValue placeholder="Select genre" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {GENRES.map((g) => (
+                          <SelectItem key={g} value={g}>
+                            {g}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.genre && <p className="text-xs text-destructive">{errors.genre}</p>}
+                  </div>
+
+                  {/* Event */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="event">Event</Label>
+                    <Select value={form.event} onValueChange={(v) => update("event", v)}>
+                      <SelectTrigger id="event" className="bg-muted/60 rounded-xl">
+                        <SelectValue placeholder="Select event" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {EVENTS.map((e) => (
+                          <SelectItem key={e} value={e}>
+                            {e}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.event && <p className="text-xs text-destructive">{errors.event}</p>}
+                  </div>
+
+                  {/* Event Date */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="eventDate">Event Date</Label>
+                    <Input
+                      id="eventDate"
+                      type="date"
+                      value={form.eventDate}
+                      onChange={(e) => update("eventDate", e.target.value)}
+                      className="bg-muted/60 rounded-xl"
+                      min={new Date().toISOString().split("T")[0]}
+                    />
+                    {errors.eventDate && (
+                      <p className="text-xs text-destructive">{errors.eventDate}</p>
+                    )}
+                  </div>
+
+                  {/* Location Type */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="locationType">Location Type</Label>
+                    <Select
+                      value={form.locationType}
+                      onValueChange={(v) => update("locationType", v)}
+                    >
+                      <SelectTrigger id="locationType" className="bg-muted/60 rounded-xl">
+                        <SelectValue placeholder="Select Location Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {LOCATION_TYPES.map((l) => (
+                          <SelectItem key={l} value={l}>
+                            {l}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.locationType && (
+                      <p className="text-xs text-destructive">{errors.locationType}</p>
+                    )}
+                  </div>
+
+                  {/* Location */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="location">Location</Label>
+                    <Input
+                      id="location"
+                      placeholder="Enter Location Here"
+                      value={form.location}
+                      onChange={(e) => update("location", e.target.value)}
+                      className="bg-muted/60 rounded-xl"
+                      maxLength={200}
+                    />
+                    {errors.location && (
+                      <p className="text-xs text-destructive">{errors.location}</p>
+                    )}
+                  </div>
+
+                  {/* Budget */}
+                  <div className="space-y-1.5">
+                    <Label htmlFor="budget">Budget</Label>
+                    <Select value={form.budget} onValueChange={(v) => update("budget", v)}>
+                      <SelectTrigger id="budget" className="bg-muted/60 rounded-xl">
+                        <SelectValue placeholder="Select Budget" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {BUDGETS.map((b) => (
+                          <SelectItem key={b} value={b}>
+                            {b}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.budget && <p className="text-xs text-destructive">{errors.budget}</p>}
+                  </div>
+
+                  {/* Submit */}
+                  <div className="md:col-span-2 lg:col-span-3 flex justify-center pt-4">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="bg-gradient-to-b from-destructive to-secondary text-primary-foreground font-heading font-semibold rounded-xl px-16 shadow-warm hover:opacity-90"
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      </PageTransition>
     </Layout>
   );
 };
