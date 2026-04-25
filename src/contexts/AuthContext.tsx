@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-export type UserRole = "client" | "artist" | null;
+export type UserRole = "user" | null;
 
 interface User {
   id: string;
@@ -16,7 +16,7 @@ interface AuthContextType {
   login: (email: string, name?: string) => void;
   loginWithGoogle: () => void;
   logout: () => void;
-  setRole: (role: "client" | "artist") => void;
+  setRole: (role: "user") => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,7 +26,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const stored = localStorage.getItem("indisara_user");
-    if (stored) setUser(JSON.parse(stored));
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      // Migrate any existing role (client/artist) to "user"
+      if (parsed.role !== "user") parsed.role = "user";
+      setUser(parsed);
+    }
   }, []);
 
   const persist = (u: User) => {
@@ -39,7 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       id: crypto.randomUUID(),
       name: name || email.split("@")[0],
       email,
-      role: null,
+      role: "user",
       createdAt: new Date().toISOString(),
     };
     persist(u);
@@ -50,7 +55,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       id: crypto.randomUUID(),
       name: "Google User",
       email: "user@gmail.com",
-      role: null,
+      role: "user",
       createdAt: new Date().toISOString(),
     };
     persist(u);
@@ -61,11 +66,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("indisara_user");
   };
 
-  const setRole = (role: "client" | "artist") => {
-    if (user) {
-      const updated = { ...user, role };
-      persist(updated);
-    }
+  const setRole = (_role: "user") => {
+    if (user) persist({ ...user, role: "user" });
   };
 
   return (
