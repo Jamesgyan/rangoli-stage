@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Video, Award, BookOpen, Play, Users } from "lucide-react";
+import { Video, Award, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import PageTransition from "@/components/PageTransition";
@@ -89,27 +89,6 @@ const Learning = () => {
           </div>
         </motion.section>
 
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="py-20 bg-secondary text-secondary-foreground"
-        >
-          <div className="container mx-auto px-4 grid md:grid-cols-3 gap-8 text-center">
-            {[
-              { icon: Users, value: "5,000+", label: "Active Learners" },
-              { icon: Video, value: "200+", label: "Video Lessons" },
-              { icon: Award, value: "1,200+", label: "Certificates Issued" },
-            ].map((s) => (
-              <motion.div key={s.label} variants={fadeUp} className="flex flex-col items-center">
-                <s.icon size={28} className="text-highlight mb-3" />
-                <span className="font-heading font-extrabold text-3xl md:text-4xl">{s.value}</span>
-                <span className="text-secondary-foreground/70 mt-1">{s.label}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
       </PageTransition>
     </Layout>
   );
