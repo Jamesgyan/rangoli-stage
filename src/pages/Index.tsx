@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Search, Calendar, PartyPopper, GraduationCap, Video, Award, Sparkles } from "lucide-react";
+import { Search, Calendar, PartyPopper, GraduationCap, Video, Award, Sparkles, Eye, Target, Compass, BookOpen, ShoppingBag, PartyPopper as PartyIcon, Plane, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import PageTransition from "@/components/PageTransition";
@@ -255,6 +255,145 @@ const Index = () => {
             </div>
           </div>
         </motion.section>
+
+        {/* VISION & MISSION */}
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="py-20 bg-section mandala-bg"
+        >
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-14">
+              <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-heading text-xs tracking-widest uppercase mb-4">
+                Our Purpose
+              </span>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Vision &amp; Mission</h2>
+              <p className="text-muted-foreground max-w-xl mx-auto">What drives Indisara every day</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              <motion.div
+                variants={fadeUp}
+                whileHover={{ y: -6 }}
+                className="bg-card rounded-2xl p-8 border border-border shadow-sm hover:shadow-warm transition-all"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5">
+                  <Eye size={26} />
+                </div>
+                <h3 className="font-heading font-bold text-2xl mb-3 flex items-center gap-2">
+                  <span aria-hidden>🌿</span> Vision
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  To become India's most trusted cultural platform — where every living art form finds its audience,
+                  every artist finds dignity, and every Indian rediscovers the richness of their heritage.
+                </p>
+              </motion.div>
+              <motion.div
+                variants={fadeUp}
+                whileHover={{ y: -6 }}
+                className="bg-card rounded-2xl p-8 border border-border shadow-sm hover:shadow-warm transition-all"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-accent/15 text-accent flex items-center justify-center mb-5">
+                  <Target size={26} />
+                </div>
+                <h3 className="font-heading font-bold text-2xl mb-3 flex items-center gap-2">
+                  <span aria-hidden>🎯</span> Mission
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  To connect authentic Indian cultural artists with the people and organisations who seek them — through
+                  a curated, artist-first platform that celebrates folk and classical arts, creates meaningful
+                  experiences, and ensures that India's living culture is preserved, celebrated, and fairly rewarded.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
+        <div className="h-1 gradient-tricolor-line" />
+
+        {/* CATEGORIES & SERVICES */}
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="py-20 bg-card chakra-bg"
+        >
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-14">
+              <span className="inline-block px-4 py-1 rounded-full bg-accent/15 text-accent font-heading text-xs tracking-widest uppercase mb-4">
+                The Indisara Ecosystem
+              </span>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Categories &amp; Services</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Six interconnected pillars working together to celebrate, share and sustain India's living culture.
+              </p>
+            </div>
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {[
+                {
+                  icon: Compass,
+                  title: "Discovery",
+                  services: "AR/VR tours, folk stories, live streams, personalized recommendations",
+                  link: "Feeds Learning & Tourism via teasers",
+                },
+                {
+                  icon: BookOpen,
+                  title: "Learning",
+                  services: "Online & offline classes, DIY kits, certifications in dances and crafts",
+                  link: "Connects to Marketplace (supplies) & Events (apply skills)",
+                },
+                {
+                  icon: ShoppingBag,
+                  title: "Marketplace",
+                  services: "Art & crafts sales, custom orders, curated subscription boxes",
+                  link: "Promotes Events; supplied by trusted partners",
+                },
+                {
+                  icon: PartyIcon,
+                  title: "Events",
+                  services: "Artist bookings for weddings & festivals, virtual workshops",
+                  link: "Alumni discounts from Learning; pre-trips to Tourism",
+                },
+                {
+                  icon: Plane,
+                  title: "Tourism",
+                  services: "Spiritual & cultural packages, homestays, village immersions",
+                  link: "Souvenirs from Marketplace; stories from Community",
+                },
+                {
+                  icon: Users,
+                  title: "Community",
+                  services: "Forums, challenges, artisan profiles, UGC contests",
+                  link: "Reviews build trust; data refines recommendations",
+                },
+              ].map((cat) => (
+                <motion.div
+                  key={cat.title}
+                  variants={fadeUp}
+                  whileHover={{ y: -6 }}
+                  className="bg-background rounded-2xl p-7 border border-border shadow-sm hover:shadow-warm transition-all"
+                >
+                  <div className="w-14 h-14 rounded-2xl gradient-saffron flex items-center justify-center mb-4 shadow-warm">
+                    <cat.icon size={26} className="text-primary-foreground" />
+                  </div>
+                  <h3 className="font-heading font-bold text-xl mb-2">{cat.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{cat.services}</p>
+                  <p className="text-xs text-primary font-heading uppercase tracking-wider">{cat.link}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        <div className="h-1 gradient-tricolor-line" />
 
         {/* ENJOY / CTA */}
         <motion.section
