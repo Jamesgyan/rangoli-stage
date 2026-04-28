@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Soft cream background (between flag white & saffron tint) */
+    --background: 36 55% 96%;
+    --foreground: 20 14% 12%;
+
+    --card: 40 55% 99%;
+    --card-foreground: 20 14% 12%;
+
+    --popover: 40 55% 99%;
+    --popover-foreground: 20 14% 12%;
+
+    /* India Flag Green — primary brand */
+    --primary: 134 61% 24%;
+    --primary-foreground: 36 60% 97%;
+
+    /* India Flag Saffron — secondary brand */
+    --secondary: 24 95% 53%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Saffron accent */
+    --accent: 22 92% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Ashoka Chakra Blue highlight */
+    --highlight: 222 64% 32%;
+    --highlight-foreground: 36 60% 97%;
+
+    --muted: 39 35% 90%;
+    --muted-foreground: 20 10% 38%;
+
+    --destructive: 0 74% 47%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 30 30% 86%;
+    --input: 30 30% 86%;
+    --ring: 134 61% 24%;
+
+    --radius: 1rem;
+
+    --section-bg: 36 50% 94%;
+
+    /* Brand wordmark accent — flag saffron */
+    --brand-orange: 24 95% 53%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 235 66% 30%;
+  }
+
+  .dark {
+    --background: 220 20% 8%;
+    --foreground: 43 30% 95%;
+    --card: 220 20% 12%;
+    --card-foreground: 43 30% 95%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 43 30% 95%;
+    --primary: 26 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 123 56% 30%;
+    --secondary-foreground: 0 0% 98%;
+    --accent: 235 66% 45%;
+    --accent-foreground: 0 0% 100%;
+    --highlight: 43 96% 56%;
+    --highlight-foreground: 0 0% 13%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 43 10% 60%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 26 100% 50%;
+    --section-bg: 220 20% 10%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 235 66% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .gradient-saffron {
+    background: linear-gradient(135deg, hsl(24 95% 53%), hsl(134 61% 24%));
+  }
+  .gradient-warm {
+    background: linear-gradient(180deg, hsl(24 95% 53% / 0.10) 0%, hsl(36 55% 96%) 50%, hsl(134 61% 24% / 0.10) 100%);
+  }
+  .gradient-tricolor {
+    background: linear-gradient(180deg, hsl(24 95% 53% / 0.10) 0%, hsl(36 55% 97%) 50%, hsl(134 61% 24% / 0.10) 100%);
+  }
+  .gradient-tricolor-line {
+    background: linear-gradient(90deg, hsl(24 95% 53%), hsl(36 55% 97%), hsl(134 61% 24%));
+  }
+  .gradient-cultural {
+    background: linear-gradient(135deg, hsl(134 61% 18%), hsl(134 61% 12%));
+  }
+  .text-gradient-warm {
+    background: linear-gradient(135deg, hsl(24 95% 53%), hsl(134 61% 24%));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .shadow-warm {
+    box-shadow: 0 10px 30px -10px hsl(24 95% 53% / 0.30);
+  }
+  .mandala-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231F6B3F' fill-opacity='0.05'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20v20h20zm0 0c0 11.046 8.954 20 20 20V30H30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .rangoli-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231F6B3F' fill-opacity='0.04'%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3Ccircle cx='40' cy='40' r='10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .chakra-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%231F6B3F' stroke-opacity='0.05' stroke-width='1'%3E%3Ccircle cx='60' cy='60' r='40'/%3E%3Ccircle cx='60' cy='60' r='30'/%3E%3Ccircle cx='60' cy='60' r='20'/%3E%3Cline x1='60' y1='20' x2='60' y2='100'/%3E%3Cline x1='20' y1='60' x2='100' y2='60'/%3E%3Cline x1='31.7' y1='31.7' x2='88.3' y2='88.3'/%3E%3Cline x1='88.3' y1='31.7' x2='31.7' y2='88.3'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}
