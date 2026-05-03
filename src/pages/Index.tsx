@@ -41,9 +41,6 @@ const Index = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-left"
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-heading text-xs tracking-widest uppercase mb-5">
-                <Sparkles size={14} /> Indisara · Folk Artist Marketplace
-              </span>
               <h1 className="font-heading font-extrabold text-4xl md:text-6xl leading-[1.05] text-foreground mb-5">
                 The Essence of <span className="text-gradient-warm">Indian Culture</span>
               </h1>
@@ -58,11 +55,6 @@ const Index = () => {
                 >
                   <Search size={18} /> Book an Artist
                 </Button>
-                <Link to="/login">
-                  <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground font-heading rounded-full">
-                    Login
-                  </Button>
-                </Link>
               </div>
             </motion.div>
 
@@ -182,7 +174,7 @@ const Index = () => {
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { img: dancerImg, title: "Verified Artists", desc: "Every artist is personally vetted for authenticity, skill, and reliability." },
+                { img: dancerImg, title: "Verified Artists", desc: "Every artist is personally verified for authenticity, skill, and reliability." },
                 { img: dholImg, title: "Transparent Pricing", desc: "Clear, upfront rates with no hidden fees — book with full confidence." },
                 { img: musiciansImg, title: "End-to-End Support", desc: "Dedicated assistance from booking to backstage on the day of your event." },
               ].map((f) => (
@@ -218,17 +210,17 @@ const Index = () => {
               <span className="inline-block px-4 py-1 rounded-full bg-accent/15 text-accent font-heading text-xs tracking-widest uppercase mb-4">
                 Indisara Academy
               </span>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-2">Learning for Artists</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-2">Book Artists to Learn the Art</h2>
               <p className="text-primary font-heading font-semibold text-lg mb-3">Learn. Improve. Perform.</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Access expert-led courses, video lessons, and resources to improve skills and preserve Indian folk culture.
+                Offline classes only — learn directly from master folk artists in person to truly experience and preserve Indian culture.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
               {[
-                { icon: GraduationCap, title: "Skill Enhancement", desc: "Structured curriculums designed by master practitioners to refine your craft." },
-                { icon: Video, title: "Video Lessons", desc: "On-demand HD lessons covering technique, history, and stage performance." },
+                { icon: GraduationCap, title: "Skill Enhancement", desc: "Structured in-person curriculums designed by master practitioners to refine your craft." },
+                { icon: Users, title: "Offline Classes", desc: "Hands-on, in-person sessions with verified folk artists — no online or video lessons." },
                 { icon: Award, title: "Certificates & Recognition", desc: "Earn verified certificates that elevate your profile with event organisers." },
               ].map((f) => (
                 <motion.div
@@ -327,7 +319,8 @@ const Index = () => {
               </span>
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Categories &amp; Services</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Six interconnected pillars working together to celebrate, share and sustain India's living culture.
+                Six interconnected pillars we're building to celebrate, share and sustain India's living culture.
+                <span className="block mt-2 text-primary font-heading font-semibold">All services below are coming soon.</span>
               </p>
             </div>
             <motion.div
@@ -384,9 +377,11 @@ const Index = () => {
                   <div className="w-14 h-14 rounded-2xl gradient-saffron flex items-center justify-center mb-4 shadow-warm">
                     <cat.icon size={26} className="text-primary-foreground" />
                   </div>
-                  <h3 className="font-heading font-bold text-xl mb-2">{cat.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{cat.services}</p>
-                  <p className="text-xs text-primary font-heading uppercase tracking-wider">{cat.link}</p>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-heading font-bold text-xl">{cat.title}</h3>
+                    <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-accent/15 text-accent font-heading">Coming Soon</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{cat.services}</p>
                 </motion.div>
               ))}
             </motion.div>

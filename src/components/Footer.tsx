@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import logo from "@/assets/indisara-logo.jpeg";
 
 const Footer = () => (
@@ -13,7 +14,7 @@ const Footer = () => (
             <span className="font-heading font-bold text-xl tracking-wider text-accent">INDISARA</span>
           </div>
           <p className="text-sm text-secondary-foreground/70">
-            Connecting authentic Indian folk artists with event organizers. Bringing culture to life.
+            The Essence of Indian Culture.
           </p>
         </div>
 
@@ -44,10 +45,18 @@ const Footer = () => (
             <p>📍 India</p>
           </div>
           <div className="flex gap-3 mt-4">
-            <span className="w-8 h-8 rounded-full bg-secondary-foreground/10 flex items-center justify-center text-xs hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">fb</span>
-            <span className="w-8 h-8 rounded-full bg-secondary-foreground/10 flex items-center justify-center text-xs hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">ig</span>
-            <span className="w-8 h-8 rounded-full bg-secondary-foreground/10 flex items-center justify-center text-xs hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">tw</span>
-            <span className="w-8 h-8 rounded-full bg-secondary-foreground/10 flex items-center justify-center text-xs hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">yt</span>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-9 h-9 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <Facebook size={16} />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-9 h-9 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <Instagram size={16} />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-9 h-9 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <Twitter size={16} />
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-9 h-9 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
+              <Youtube size={16} />
+            </a>
           </div>
         </div>
       </div>
