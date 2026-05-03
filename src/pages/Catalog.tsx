@@ -24,7 +24,7 @@ const Catalog = () => {
     <Layout>
       <section className="bg-section py-10 mandala-bg">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading font-bold text-3xl md:text-4xl mb-2">Art Form Catalog</h1>
+          <h1 className="font-heading font-bold text-3xl md:text-4xl mb-2">Art Form Catalogue</h1>
           <p className="text-muted-foreground mb-8">Explore and book traditional folk art performances</p>
           <div className="h-1 gradient-tricolor-line rounded-full mb-8" />
 

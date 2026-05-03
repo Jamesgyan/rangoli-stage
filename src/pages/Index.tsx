@@ -58,11 +58,6 @@ const Index = () => {
                 >
                   <Search size={18} /> Book an Artist
                 </Button>
-                <Link to="/login">
-                  <Button size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground font-heading rounded-full">
-                    Login
-                  </Button>
-                </Link>
               </div>
             </motion.div>
 
@@ -182,7 +177,7 @@ const Index = () => {
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { img: dancerImg, title: "Verified Artists", desc: "Every artist is personally vetted for authenticity, skill, and reliability." },
+                { img: dancerImg, title: "Verified Artists", desc: "Every artist is personally verified for authenticity, skill, and reliability." },
                 { img: dholImg, title: "Transparent Pricing", desc: "Clear, upfront rates with no hidden fees — book with full confidence." },
                 { img: musiciansImg, title: "End-to-End Support", desc: "Dedicated assistance from booking to backstage on the day of your event." },
               ].map((f) => (
