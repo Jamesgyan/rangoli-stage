@@ -210,17 +210,17 @@ const Index = () => {
               <span className="inline-block px-4 py-1 rounded-full bg-accent/15 text-accent font-heading text-xs tracking-widest uppercase mb-4">
                 Indisara Academy
               </span>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-2">Learning for Artists</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-2">Book Artists to Learn the Art</h2>
               <p className="text-primary font-heading font-semibold text-lg mb-3">Learn. Improve. Perform.</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Access expert-led courses, video lessons, and resources to improve skills and preserve Indian folk culture.
+                Offline classes only — learn directly from master folk artists in person to truly experience and preserve Indian culture.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
               {[
-                { icon: GraduationCap, title: "Skill Enhancement", desc: "Structured curriculums designed by master practitioners to refine your craft." },
-                { icon: Video, title: "Video Lessons", desc: "On-demand HD lessons covering technique, history, and stage performance." },
+                { icon: GraduationCap, title: "Skill Enhancement", desc: "Structured in-person curriculums designed by master practitioners to refine your craft." },
+                { icon: Users, title: "Offline Classes", desc: "Hands-on, in-person sessions with verified folk artists — no online or video lessons." },
                 { icon: Award, title: "Certificates & Recognition", desc: "Earn verified certificates that elevate your profile with event organisers." },
               ].map((f) => (
                 <motion.div
