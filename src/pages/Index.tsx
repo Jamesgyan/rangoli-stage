@@ -41,9 +41,6 @@ const Index = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-left"
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-heading text-xs tracking-widest uppercase mb-5">
-                <Sparkles size={14} /> Indisara · Folk Artist Marketplace
-              </span>
               <h1 className="font-heading font-extrabold text-4xl md:text-6xl leading-[1.05] text-foreground mb-5">
                 The Essence of <span className="text-gradient-warm">Indian Culture</span>
               </h1>
