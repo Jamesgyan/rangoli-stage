@@ -319,7 +319,8 @@ const Index = () => {
               </span>
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Categories &amp; Services</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Six interconnected pillars working together to celebrate, share and sustain India's living culture.
+                Six interconnected pillars we're building to celebrate, share and sustain India's living culture.
+                <span className="block mt-2 text-primary font-heading font-semibold">All services below are coming soon.</span>
               </p>
             </div>
             <motion.div
@@ -376,9 +377,11 @@ const Index = () => {
                   <div className="w-14 h-14 rounded-2xl gradient-saffron flex items-center justify-center mb-4 shadow-warm">
                     <cat.icon size={26} className="text-primary-foreground" />
                   </div>
-                  <h3 className="font-heading font-bold text-xl mb-2">{cat.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{cat.services}</p>
-                  <p className="text-xs text-primary font-heading uppercase tracking-wider">{cat.link}</p>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-heading font-bold text-xl">{cat.title}</h3>
+                    <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-accent/15 text-accent font-heading">Coming Soon</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{cat.services}</p>
                 </motion.div>
               ))}
             </motion.div>
